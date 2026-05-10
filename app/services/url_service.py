@@ -40,7 +40,8 @@ def calcular_cache_ttl(url: Url, default: int = 3600) -> int:
     """TTL em segundos: usa o tempo restante até expiração ou o default para URLs sem expiração."""
     if url.expires_at is None:
         return default
-    restante = (url.expires_at.replace(tzinfo=timezone.utc) - datetime.now(timezone.utc)).total_seconds()
+    expira_em = url.expires_at.replace(tzinfo=timezone.utc)
+    restante = (expira_em - datetime.now(timezone.utc)).total_seconds()
     return max(0, int(restante))
 
 

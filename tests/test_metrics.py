@@ -64,4 +64,5 @@ async def test_metrics_http_requests_registra_latencia(client: AsyncClient) -> N
     await client.get("/health")
     corpo = (await client.get("/metrics")).text
     # Verifica que o bucket do histogram foi populado
-    assert 'url_shortener_http_request_duration_seconds_bucket{le="0.1",method="GET",path="/health"}' in corpo
+    prefixo = "url_shortener_http_request_duration_seconds_bucket"
+    assert f'{prefixo}{{le="0.1",method="GET",path="/health"}}' in corpo

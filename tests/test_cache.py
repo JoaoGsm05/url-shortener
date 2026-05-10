@@ -53,5 +53,7 @@ async def test_cache_ttl_default_para_url_sem_expiracao() -> None:
     from app.models.url import Url
     from app.services.url_service import calcular_cache_ttl
 
-    url_sem_expiracao = Url(id=1, slug="abc1234", original_url=_URL, total_clicks=0, expires_at=None)
+    url_sem_expiracao = Url(
+        id=1, slug="abc1234", original_url=_URL, total_clicks=0, expires_at=None
+    )
     assert calcular_cache_ttl(url_sem_expiracao) == 3600

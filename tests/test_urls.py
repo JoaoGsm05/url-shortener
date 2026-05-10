@@ -2,7 +2,6 @@ from datetime import datetime, timedelta, timezone
 
 from httpx import AsyncClient
 
-
 _URL = "https://exemplo.com/"  # Pydantic HttpUrl normaliza adicionando barra final
 
 
