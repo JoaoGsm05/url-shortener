@@ -1,4 +1,5 @@
 import time
+from collections.abc import Awaitable, Callable
 
 from fastapi import FastAPI, Request, Response
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
@@ -20,7 +21,10 @@ def _normalizar_path(path: str) -> str:
 
 
 @app.middleware("http")
-async def track_http_metrics(request: Request, call_next: object) -> Response:
+async def track_http_metrics(
+    request: Request,
+    call_next: Callable[[Request], Awaitable[Response]],
+) -> Response:
     path = _normalizar_path(request.url.path)
     inicio = time.perf_counter()
     response = await call_next(request)

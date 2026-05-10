@@ -21,7 +21,8 @@ def _get_client() -> aioredis.Redis:
 
 async def _cache_get(key: str) -> str | None:
     try:
-        return await _get_client().get(key)
+        result = await _get_client().get(key)
+        return str(result) if result is not None else None
     except Exception:
         return None
 
