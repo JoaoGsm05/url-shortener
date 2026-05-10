@@ -1,0 +1,16 @@
+# Garante LF nos shell scripts mesmo em Windows (necessário para execução em Linux/containers)
+*.sh text eol=lf
+
+# Python e YAML com LF
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.ini text eol=lf
+*.mako text eol=lf
+Dockerfile text eol=lf
+
+# Binários — sem conversão
+uv.lock binary

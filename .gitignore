@@ -1,0 +1,41 @@
+# Ambiente virtual e cache do uv
+.venv/
+.uv-cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ferramentas de qualidade
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Banco de testes
+test.db
+
+# Variáveis de ambiente (nunca commitar)
+.env
+.env.local
+
+# Backups do Postgres
+backups/
+
+# IDE
+.vscode/
+.idea/
+
+# Coverage
+.coverage
+coverage.xml
+htmlcov/
+
+# Claude Code (settings locais)
+.claude/
+
+# Planejamento interno
+"Prompt md.txt"
+Prompt*.txt
+*.txt

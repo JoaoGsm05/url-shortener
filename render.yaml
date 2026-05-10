@@ -1,0 +1,42 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Deploy: conecte este repo no dashboard do Render e clique em "Apply Blueprint"
+#
+# Após o primeiro deploy, copie a URL gerada (ex: https://url-shortener-xxxx.onrender.com)
+# e configure a variável BASE_URL no dashboard do Render.
+#
+# ATENÇÃO (free tier):
+#   - Web service dorme após 15 min sem requisições (cold start ~30s)
+#   - PostgreSQL free expira em 90 dias — execute backup antes de expirar:
+#       DATABASE_URL=<url_render> ./scripts/backup_db.sh
+
+services:
+  - type: web
+    name: url-shortener
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      # Injetado automaticamente pelo Render a partir do banco abaixo.
+      # O validator em config.py converte postgresql:// → postgresql+asyncpg://
+      - key: DATABASE_URL
+        fromDatabase:
+          name: url-shortener-db
+          property: connectionString
+
+      # Preencher manualmente após o primeiro deploy com a URL pública do serviço
+      - key: BASE_URL
+        sync: false
+
+      - key: ENVIRONMENT
+        value: production
+
+      # Redis não disponível no free tier — cache faz fallback silencioso para DB
+      - key: REDIS_URL
+        value: redis://localhost:6379/0
+
+databases:
+  - name: url-shortener-db
+    databaseName: urlshortener
+    user: urlshortener
+    plan: free
+    region: oregon
