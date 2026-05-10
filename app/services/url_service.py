@@ -52,9 +52,7 @@ def url_expirada(url: Url) -> bool:
 
 
 async def buscar_stats(db: AsyncSession, url_id: int) -> tuple[datetime | None, list[str]]:
-    result_last = await db.execute(
-        select(func.max(Click.clicked_at)).where(Click.url_id == url_id)
-    )
+    result_last = await db.execute(select(func.max(Click.clicked_at)).where(Click.url_id == url_id))
     last_click: datetime | None = result_last.scalar_one_or_none()
 
     result_ua = await db.execute(

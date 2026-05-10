@@ -7,7 +7,7 @@ _URL = "https://exemplo.com/"
 
 def _ler_contador(texto: str, nome: str) -> float:
     """Extrai o valor de uma métrica pelo nome exato (com labels opcionais)."""
-    padrao = rf'^{re.escape(nome)}\s+([\d.e+]+)'
+    padrao = rf"^{re.escape(nome)}\s+([\d.e+]+)"
     match = re.search(padrao, texto, re.MULTILINE)
     return float(match.group(1)) if match else 0.0
 
